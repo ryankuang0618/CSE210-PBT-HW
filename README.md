@@ -17,11 +17,14 @@ This workspace contains several Python scripts located in the `executable_files`
 
 ### `executable_files/run_q1.py`
 
+  ```sh
+  cd executable_files
+  python run_q1.py
+  ```
+
 ## Running the Testing Scripts
 
-### `conda activate py3118_env`
-### `pytest test_transpose.py`
-
 ```sh
-cd executable_files
-python run_q1.py
+conda activate py3118_env
+pytest test_transpose.py
+```
