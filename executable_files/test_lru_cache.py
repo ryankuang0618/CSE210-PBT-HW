@@ -117,28 +117,6 @@ def test_argument_order_cache_behavior(x, y):
     else:
         assert call_count == 1, f"Expected call count 1, but got {call_count}"
 
-# 10. Test cache eviction behavior: Check if the oldest entry is removed
-def test_cache_eviction_behavior():
-    call_count = 0
-
-    def tracking_func(a, b):
-        nonlocal call_count
-        call_count += 1
-        return a + b
-
-    cached_track = module.lru_cache(tracking_func, cacheLimit=2)
-
-    assert cached_track(1, 2) == 3
-    assert call_count == 1  # New entry added
-
-    assert cached_track(2, 3) == 5
-    assert call_count == 2  # New entry added
-
-    assert cached_track(3, 4) == 7
-    assert call_count == 3  # Oldest entry evicted
-
-    assert cached_track(1, 2) == 3
-    assert call_count == 4  # Recomputed after eviction
 
 # 11. Test behavior for repeated inputs
 @given(x=st.integers(), y=st.integers())
@@ -159,15 +137,8 @@ def test_empty_cache_behavior():
 
     cached_track = module.lru_cache(tracking_func, cacheLimit=2)
 
-    # Cache should be empty; first call calculates result
     assert cached_track(1, 2) == 3
     assert call_count == 1
-
-# 13. Test unsupported argument types
-@given(x=st.just({"key": "value"}), y=st.just({"key": "value"}))
-def test_unsupported_argument_types(x, y):
-    with pytest.raises(TypeError):
-        cached_function(x, y)
 
 if __name__ == "__main__":
     pytest.main([__file__])

@@ -34,7 +34,7 @@ def timeout_handler(signum, frame):
 
 # Test: Target is in the list
 @given(array=sorted_list_strategy(), target=target_strategy())
-def test_target_in_list(array, target):
+def test_binary_search_finds_target(array, target):
     signal.signal(signal.SIGALRM, timeout_handler)
     signal.alarm(2)
 
