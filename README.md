@@ -26,5 +26,10 @@ This workspace contains several Python scripts located in the `executable_files`
 
 ```sh
 conda activate py3118_env
+pip install python-dateutil
 pytest test_transpose.py
+pytest test_parse_date.py
+pytest test_binary_search.py
+pytest test_lru_cache.py
+pytest test_merge_sort.py
 ```
